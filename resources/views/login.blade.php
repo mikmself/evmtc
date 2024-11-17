@@ -82,14 +82,15 @@
 </head>
 <body>
 <div class="login-card">
-    <h1 class="text-3xl font-extrabold text-gray-800 mb-4">Welcome!</h1>
-    <p class="text-gray-600 mb-6">Please log in to continue</p>
+    <h1 class="text-3xl font-extrabold text-gray-800 mb-4">Selamat Datang!</h1>
+    <p class="text-gray-600 mb-6">Sistem Pemilihan Calon <br> Ketua Intermedia Periode 2024/2025</p>
     <form action="/login" method="POST">
         <input type="email" name="email" placeholder="Email" class="input-field" required>
         <input type="password" name="password" placeholder="Password" class="input-field" required>
         <button type="submit" class="glow-button w-full">Login</button>
     </form>
-    <p class="text-gray-500 mt-4">Don't have an account? <a href="#" class="text-blue-500 font-bold hover:underline">Sign up</a></p>
+    <p class="text-gray-500 mt-4">Developed By <a href="#" class="text-blue-500 font-bold hover:underline">mikmself</a></p>
+    <p class="text-gray-500 mt-4">Copyright &copy; <a href="#" class="text-blue-500 font-bold hover:underline">MIKM Technology Creative</a></p>
 </div>
 </body>
 </html>
