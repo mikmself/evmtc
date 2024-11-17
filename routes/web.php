@@ -11,3 +11,6 @@ Route::get('/login', function () {
 Route::get('/candidate', function () {
     return view('candidate');
 });
+Route::get('/thanks', function () {
+    return view('thanks');
+});

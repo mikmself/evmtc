@@ -14,8 +14,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('uqiue_code')->nullable();
+            $table->string('unique_code')->nullable();
             $table->string('role')->nullable()->default('user');
+            $table->string('is_voted')->nullable()->default('no');
             $table->foreignId('session_id')
                 ->nullable()
                 ->constrained('session_votes')

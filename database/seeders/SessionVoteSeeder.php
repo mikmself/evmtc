@@ -10,12 +10,12 @@ class SessionVoteSeeder extends Seeder
     public function run()
     {
         SessionVote::create([
-            'name' => 'Presidential Election 2024',
+            'name' => 'Angkatan 23',
             'status' => 'active',
         ]);
 
         SessionVote::create([
-            'name' => 'Local Council Vote 2024',
+            'name' => 'Angkatan 24',
             'status' => 'inactive',
         ]);
     }
