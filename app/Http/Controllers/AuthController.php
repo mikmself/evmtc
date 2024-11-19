@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Services\AuthService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
@@ -32,5 +33,10 @@ class AuthController extends Controller
                 'message' => $e->getMessage()
             ])->with('sweetalert', 'Login gagal! Periksa kembali kredensial Anda.');
         }
+    }
+    public function logout()
+    {
+        Auth::logout(); // Melakukan proses logout
+        return Redirect::to('/')->with('sweetalert', 'You have successfully logged out!');
     }
 }

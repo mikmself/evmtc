@@ -188,27 +188,19 @@
 <script>
     let selectedCandidate = "";
     let idCandidate = "";
-    // Fungsi untuk menutup modal
     function closeModal(id) {
         document.getElementById(id).classList.remove('active');
     }
-
-    // Fungsi untuk membuka modal konfirmasi vote
     function openVoteModal(candidate, id) {
         selectedCandidate = candidate;
         idCandidate = id;
         document.getElementById('vote-message').textContent = "Are you sure you want to vote for " + candidate + "?";
         document.getElementById('vote-modal').classList.add('active');
     }
-
-    // Fungsi untuk membuka modal detail
     function openModal(id) {
         document.getElementById(id).classList.add('active');
     }
-
-    // Fungsi untuk mengonfirmasi vote dan melakukan request ke server
     function confirmVote() {
-        // Gunakan selectedCandidate sebagai ID kandidat jika perlu
         fetch(`/vote/${idCandidate}`, { // Pastikan ini sesuai dengan kebutuhan
             method: 'POST',
             headers: {
@@ -223,6 +215,8 @@
                         title: 'Success!',
                         text: data.message,
                         confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = '/thanks';
                     });
                 } else {
                     Swal.fire({
