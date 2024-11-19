@@ -55,6 +55,12 @@
             color: #D1C4E9;
             line-height: 1.6;
         }
+
+        .countdown-message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #FFD700;
+        }
     </style>
 </head>
 <body>
@@ -62,7 +68,37 @@
 <div class="thank-you-container">
     <div class="thank-you-header">Thank You!</div>
     <div class="thank-you-message">Thank you for voting! Your vote has been successfully recorded. We appreciate your participation and support.</div>
+    <div class="countdown-message" id="logout-message">
+        Anda akan otomatis logout dalam <span id="countdown">5</span> detik.
+    </div>
 </div>
+
+<form id="logout-form" action="/logout" method="POST" style="display: none;">
+    @csrf
+</form>
+
+<script>
+    // Fungsi untuk memulai hitungan mundur dan logout otomatis
+    function startLogoutCountdown() {
+        var countdownElement = document.getElementById('countdown');
+        var countdown = 5; // Hitungan mundur dimulai dari 5 detik
+
+        // Perbarui teks hitungan mundur setiap detik
+        var interval = setInterval(function() {
+            countdown--;
+            countdownElement.textContent = countdown;
+
+            if (countdown <= 0) {
+                clearInterval(interval);
+                // Kirim form logout
+                document.getElementById('logout-form').submit();
+            }
+        }, 1000);
+    }
+
+    // Panggil fungsi untuk memulai hitungan mundur saat halaman dimuat
+    window.onload = startLogoutCountdown;
+</script>
 
 </body>
 </html>
