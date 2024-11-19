@@ -85,12 +85,24 @@
     <h1 class="text-3xl font-extrabold text-gray-800 mb-4">Selamat Datang!</h1>
     <p class="text-gray-600 mb-6">Sistem Pemilihan Calon <br> Ketua Intermedia Periode 2024/2025</p>
     <form action="/login" method="POST">
-        <input type="email" name="email" placeholder="Email" class="input-field" required>
+        @csrf
+        <input type="email" name="identifier" placeholder="Email / NIM" class="input-field" required>
         <input type="password" name="password" placeholder="Password" class="input-field" required>
         <button type="submit" class="glow-button w-full">Login</button>
     </form>
     <p class="text-gray-500 mt-4">Developed By <a href="#" class="text-blue-500 font-bold hover:underline">mikmself</a></p>
     <p class="text-gray-500 mt-4">Copyright &copy; <a href="#" class="text-blue-500 font-bold hover:underline">MIKM Technology Creative</a></p>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if (session('sweetalert'))
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ session('sweetalert') }}',
+    });
+    @endif
+</script>
+
 </body>
 </html>
