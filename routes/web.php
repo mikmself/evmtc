@@ -7,6 +7,8 @@ Route::get('/', function () {
 });
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::post('/vote/{candidateId}', [\App\Http\Controllers\VoteController::class, 'vote'])->middleware('auth');
+
 Route::get('/thanks', function () {
     return view('thanks');
 });

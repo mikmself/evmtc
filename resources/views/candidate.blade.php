@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stunning Candidate Cards</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         body {
             background: linear-gradient(135deg, #836FFF, #211951, #F0F3FF);
@@ -162,7 +164,7 @@
                 <div class="candidate-name">{{$candidate->name}}</div>
                 <div class="candidate-motto">"{{$candidate->motto}}"</div>
                 <div class="btn-container">
-                    <button class="btn" onclick="openVoteModal('{{$candidate->name}}')">Vote</button>
+                    <button class="btn" onclick="openVoteModal('{{$candidate->name}}',{{$candidate->id}})">Vote</button>
                     <button class="btn" onclick="openModal('modal-{{$candidate->id}}')">Detail</button>
                 </div>
             </div>
@@ -185,20 +187,62 @@
 </div>
 <script>
     let selectedCandidate = "";
-    function openVoteModal(candidate) {
+    let idCandidate = "";
+    // Fungsi untuk menutup modal
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('active');
+    }
+
+    // Fungsi untuk membuka modal konfirmasi vote
+    function openVoteModal(candidate, id) {
         selectedCandidate = candidate;
+        idCandidate = id;
         document.getElementById('vote-message').textContent = "Are you sure you want to vote for " + candidate + "?";
         document.getElementById('vote-modal').classList.add('active');
     }
-    function confirmVote() {
-        alert("You have successfully voted for " + selectedCandidate + "!");
-        closeModal('vote-modal');
-    }
+
+    // Fungsi untuk membuka modal detail
     function openModal(id) {
         document.getElementById(id).classList.add('active');
     }
-    function closeModal(id) {
-        document.getElementById(id).classList.remove('active');
+
+    // Fungsi untuk mengonfirmasi vote dan melakukan request ke server
+    function confirmVote() {
+        // Gunakan selectedCandidate sebagai ID kandidat jika perlu
+        fetch(`/vote/${idCandidate}`, { // Pastikan ini sesuai dengan kebutuhan
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Something went wrong. Please try again later.',
+                    confirmButtonText: 'OK'
+                });
+            });
+
+        closeModal('vote-modal');
     }
 </script>
 </body>
