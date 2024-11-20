@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You</title>
+    <title>EVMTC - Intermedia</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dfa5oe9qp/image/upload/c_crop,g_auto,h_800,w_800/EVMTC2024/uc2ogg5b9me0xf8lmju3" type="image/x-icon">
     <style>
         body {
             background: linear-gradient(135deg, #836FFF, #211951, #F0F3FF);

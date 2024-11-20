@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return redirect('/login');});
-Route::get('/login', [\App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::get('/login', [\App\Http\Controllers\AuthController::class, 'showLoginForm']);
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
 Route::middleware('auth')->group(function () {
     Route::get('candidates', [\App\Http\Controllers\WebController::class,'candidatePage']);
     Route::post('/vote/{candidateId}', [\App\Http\Controllers\VoteController::class, 'vote'])->middleware('auth');

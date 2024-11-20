@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stunning Candidate Cards</title>
+    <title>EVMTC - Intermedia</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dfa5oe9qp/image/upload/c_crop,g_auto,h_800,w_800/EVMTC2024/uc2ogg5b9me0xf8lmju3" type="image/x-icon">
     <style>
         body {
             background: linear-gradient(135deg, #836FFF, #211951, #F0F3FF);
@@ -15,6 +16,7 @@
             animation: gradientShift 12s infinite alternate;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -135,7 +137,8 @@
         }
         .modal-buttons {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            gap: 30px;
             margin-top: 20px;
         }
         .modal-btn {
@@ -156,6 +159,8 @@
     </style>
 </head>
 <body>
+<h2 class="text-4xl font-bold text-white mb-6">Calon Ketua Intermedia Periode 2024/2025</h2>
+<br>
 <div class="card-container">
     @foreach($candidates as $candidate)
         <div class="candidate-card">
