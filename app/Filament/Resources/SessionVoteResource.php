@@ -24,9 +24,12 @@ class SessionVoteResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Select::make('status')
+                    ->label('Status')
+                    ->options([
+                        'active' => 'Active',
+                        'inactive' => 'Inactive',
+                    ])->required(),
             ]);
     }
 
@@ -36,7 +39,11 @@ class SessionVoteResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('status')
+                Tables\Columns\BadgeColumn::make('status')
+                    ->colors([
+                        'success' => 'active',
+                        'danger' => 'inactive',
+                    ])
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
