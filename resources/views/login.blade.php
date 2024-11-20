@@ -14,7 +14,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -34,6 +34,7 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
+            position: relative;
         }
         .login-card:hover {
             transform: rotateY(10deg) rotateX(5deg);

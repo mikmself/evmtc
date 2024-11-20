@@ -10,7 +10,6 @@ class AuthService
 {
     public function login(string $identifier, string $password)
     {
-        // Cek apakah identifier adalah email atau unique_code
         $user = User::where('email', $identifier)
             ->orWhere('unique_code', $identifier)
             ->first();
@@ -18,7 +17,9 @@ class AuthService
         if (!$user || !Hash::check($password, $user->password)) {
             throw new \Exception('Invalid credentials');
         }
-
+        if ($user->is_voted == "true") {
+            throw new \Exception('You cannot log in after voting.');
+        }
         Auth::login($user);
         return $user;
     }

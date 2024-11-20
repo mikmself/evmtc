@@ -10,12 +10,10 @@ use Illuminate\Support\Facades\Redirect;
 class AuthController extends Controller
 {
     protected $authService;
-
     public function __construct(AuthService $authService)
     {
         $this->authService = $authService;
     }
-
     public function showLoginForm()
     {
         return view('login');
@@ -25,18 +23,24 @@ class AuthController extends Controller
         try {
             $credentials = $request->only('identifier', 'password');
             $this->authService->login($credentials['identifier'], $credentials['password']);
-
-            return Redirect::to('/candidates');
+            return Redirect::to('/candidates')->with('sweetalert', 'Login berhasil!');
         } catch (\Exception $e) {
-            return response()->json([
+            $errorMessage = $e->getMessage();
+            if ($errorMessage === 'You cannot log in after voting.') {
+                return Redirect::back()->withErrors([
+                    'status' => 'error',
+                    'message' => $errorMessage
+                ])->with('sweetalert', 'Login gagal! Anda tidak dapat masuk setelah memilih.');
+            }
+            return Redirect::back()->withErrors([
                 'status' => 'error',
-                'message' => $e->getMessage()
+                'message' => 'Invalid credentials'
             ])->with('sweetalert', 'Login gagal! Periksa kembali kredensial Anda.');
         }
     }
     public function logout()
     {
-        Auth::logout(); // Melakukan proses logout
+        Auth::logout();
         return Redirect::to('/')->with('sweetalert', 'You have successfully logged out!');
     }
 }

@@ -3,42 +3,58 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vote;
+use App\Models\Candidate;
 use Illuminate\Http\Request;
+use Exception;
 
 class VoteController extends Controller
 {
-    // Tambahkan ini di Controller Anda
     public function vote(Request $request, $candidateId)
     {
-        // Pastikan user sudah login
-        if (auth()->check()) {
+        try {
+            if (!auth()->check()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'You need to be logged in to vote.'
+                ], 401);
+            }
             $user = auth()->user();
-
-            // Periksa apakah user sudah pernah melakukan vote
-            $existingVote = Vote::where('user_id', $user->id)->first();
-            if ($existingVote) {
+            if ($user->is_voted == "true") {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'You have already voted.'
                 ], 403);
             }
-
-            // Simpan vote baru
+            if (!is_numeric($candidateId)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid candidate ID.'
+                ], 400);
+            }
+            $candidate = Candidate::find($candidateId);
+            if (!$candidate) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Candidate not found.'
+                ], 404);
+            }
             $vote = new Vote();
             $vote->user_id = $user->id;
             $vote->candidate_id = $candidateId;
             $vote->save();
+            $user->is_voted = "true";
+            $user->save();
 
             return response()->json([
                 'status' => 'success',
                 'message' => 'Vote successfully recorded!'
             ], 200);
-        } else {
+
+        } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'You need to be logged in to vote.'
-            ], 401);
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ], 500);
         }
     }
-
 }
