@@ -7,7 +7,6 @@
     <title>Thank You</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Body with animated gradient background */
         body {
             background: linear-gradient(135deg, #836FFF, #211951, #F0F3FF);
             background-size: 300% 300%;
@@ -78,25 +77,19 @@
 </form>
 
 <script>
-    // Fungsi untuk memulai hitungan mundur dan logout otomatis
     function startLogoutCountdown() {
         var countdownElement = document.getElementById('countdown');
         var countdown = 5; // Hitungan mundur dimulai dari 5 detik
-
-        // Perbarui teks hitungan mundur setiap detik
         var interval = setInterval(function() {
             countdown--;
             countdownElement.textContent = countdown;
 
             if (countdown <= 0) {
                 clearInterval(interval);
-                // Kirim form logout
                 document.getElementById('logout-form').submit();
             }
         }, 1000);
     }
-
-    // Panggil fungsi untuk memulai hitungan mundur saat halaman dimuat
     window.onload = startLogoutCountdown;
 </script>
 

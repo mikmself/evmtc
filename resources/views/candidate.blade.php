@@ -201,7 +201,7 @@
         document.getElementById(id).classList.add('active');
     }
     function confirmVote() {
-        fetch(`/vote/${idCandidate}`, { // Pastikan ini sesuai dengan kebutuhan
+        fetch(`/vote/${idCandidate}`, {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
