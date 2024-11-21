@@ -12,24 +12,35 @@ class CandidateVoteChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'pie'; // Mengatur jenis chart menjadi pie
+        return 'pie';
     }
 
     protected function getData(): array
     {
-        // Ambil semua kandidat
         $candidates = Candidate::all();
 
-        // Buat array data votes untuk setiap kandidat
         $data = $candidates->mapWithKeys(function ($candidate) {
             return [$candidate->name => Vote::where('candidate_id', $candidate->id)->count()];
         });
 
         return [
-            'labels' => $data->keys()->toArray(), // Nama kandidat
+            'labels' => $data->keys()->toArray(),
             'datasets' => [
                 [
-                    'data' => $data->values()->toArray(), // Jumlah vote tiap kandidat
+                    'data' => $data->values()->toArray(),
+                    'backgroundColor' => [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                    ],
+                    'borderColor' => [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                    ],
+                    'borderWidth' => 1,
                 ],
             ],
         ];
