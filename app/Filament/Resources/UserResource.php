@@ -28,18 +28,22 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
                     ->password()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('uqiue_code')
+                    ->maxLength(255)
+                    ->dehydrateStateUsing(fn ($state) => !empty($state) ? bcrypt($state) : null)
+                    ->nullable()
+                    ->label('Password (leave blank to keep current)'),
+                Forms\Components\TextInput::make('unique_code')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('role')
                     ->maxLength(255)
                     ->default('user'),
-                Forms\Components\TextInput::make('session_id')
-                    ->numeric(),
+                Forms\Components\Select::make('session_id')
+                    ->label('Session')
+                    ->relationship('session', 'status')
+                    ->searchable()
+                    ->required(),
             ]);
     }
 
@@ -51,16 +55,17 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('uqiue_code')
+                Tables\Columns\TextColumn::make('unique_code')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('session_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\BadgeColumn::make('session.status')
+                ->label('Session Status')
+                ->colors([
+                    'success' => 'active',
+                    'danger' => 'inactive',
+                ])
+                ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -21,12 +21,14 @@ class VoteResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('candidate_id')
+                Forms\Components\BelongsToSelect::make('candidate_id')
+                    ->relationship('candidate', 'name')
                     ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('user_id')
+                    ->searchable(),
+                Forms\Components\BelongsToSelect::make('user_id')
+                    ->relationship('user', 'name')
                     ->required()
-                    ->numeric(),
+                    ->searchable(),
             ]);
     }
 
@@ -34,16 +36,21 @@ class VoteResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('candidate_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('candidate.name')
+                ->label('Candidate Name') // Label kolom
+                ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('user.name')
+                ->label('User Name')
+                ->sortable()
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -53,12 +60,8 @@ class VoteResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 

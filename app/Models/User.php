@@ -28,4 +28,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function session()
+    {
+        return $this->belongsTo(SessionVote::class, 'session_id');
+    }
+
 }
