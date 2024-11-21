@@ -24,11 +24,11 @@ class CandidateResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('vision')
-                    ->required()
+                Forms\Components\RichEditor::make('vision')
+                ->required()
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('mission')
-                    ->required()
+                Forms\Components\RichEditor::make('mission')
+                ->required()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('motto')
                     ->required()

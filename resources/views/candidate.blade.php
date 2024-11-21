@@ -176,8 +176,8 @@
         </div>
         <div class="modal" id="modal-{{$candidate->id}}">
             <div class="modal-header">{{$candidate->name}}</div>
-            <div class="modal-content"><strong>Vision:</strong><br> {{$candidate->vision}}</div>
-            <div class="modal-content"><strong>Mission:</strong><br> {{$candidate->mission}}</div>
+            <div class="modal-content"><strong>Vision:</strong><br> {!! $candidate->vision !!}</div>
+            <div class="modal-content"><strong>Mission:</strong><br> {!! $candidate->mission !!}</div>
             <button class="modal-btn" onclick="closeModal('modal-{{$candidate->id}}')">Close</button>
         </div>
     @endforeach
