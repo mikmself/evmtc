@@ -37,7 +37,7 @@ class VoteResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('candidate.name')
-                ->label('Candidate Name') // Label kolom
+                ->label('Candidate Name')
                 ->sortable()
                     ->searchable(),
 
