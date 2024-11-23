@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources\UserResource\Pages;
 
+use App\Exports\UsersExport;
 use App\Filament\Resources\UserResource;
 use EightyNine\ExcelImport\ExcelImportAction;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListUsers extends ListRecords
 {
@@ -61,7 +63,12 @@ class ListUsers extends ListRecords
                     fileName: 'user_template.xlsx',
                     sampleButtonLabel: 'Download User Template'
                 ),
-                Actions\CreateAction::make(),
+            Actions\Action::make('Export')
+                ->action(fn () => Excel::download(new UsersExport(
+                    $this->table->paginated(false)->getRecords()
+                ), 'orders.csv'))
+                ->icon('heroicon-o-arrow-down-on-square'),
+            Actions\CreateAction::make(),
         ];
     }
 }
