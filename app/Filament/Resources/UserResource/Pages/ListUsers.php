@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource;
 use EightyNine\ExcelImport\ExcelImportAction;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Support\Facades\Hash;
 
 class ListUsers extends ListRecords
 {
@@ -15,7 +16,7 @@ class ListUsers extends ListRecords
     {
         return [
             ExcelImportAction::make()
-                ->color('primary') // Warna tombol Import
+                ->color('success')
                 ->validateUsing([
                     'name' => 'required|string',
                     'email' => 'required|email',
@@ -26,8 +27,7 @@ class ListUsers extends ListRecords
                     'session_id' => 'nullable|exists:session_votes,id',
                 ])
                 ->beforeImport(function (array $data) {
-                    // Mutasi data sebelum proses import
-                    $data['password'] = bcrypt($data['password'] ?? 'default_password'); // Hash password
+                    $data['password'] = Hash::make($data['password'] ?? $data['unique_code']);
                     return $data;
                 })
                 ->afterImport(function (array $data) {
@@ -36,8 +36,32 @@ class ListUsers extends ListRecords
                         ->body('Data berhasil diimpor. Total baris: ' . count($data))
                         ->success()
                         ->send();
-                }),
-            Actions\CreateAction::make(),
+                })
+                ->sampleExcel(
+                    sampleData: [
+                        [
+                            'name' => 'Jane Doe',
+                            'email' => 'jane.doe@example.com',
+                            'password' => 'password123',
+                            'unique_code' => 'UNIQUE123',
+                            'role' => 'admin',
+                            'is_voted' => 0,
+                            'session_id' => 1,
+                        ],
+                        [
+                            'name' => 'John Smith',
+                            'email' => 'john.smith@example.com',
+                            'password' => 'securepass',
+                            'unique_code' => 'CODE456',
+                            'role' => 'user',
+                            'is_voted' => 1,
+                            'session_id' => 2,
+                        ],
+                    ],
+                    fileName: 'user_template.xlsx',
+                    sampleButtonLabel: 'Download User Template'
+                ),
+                Actions\CreateAction::make(),
         ];
     }
 }
