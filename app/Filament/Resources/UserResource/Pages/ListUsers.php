@@ -27,7 +27,7 @@ class ListUsers extends ListRecords
                     'session_id' => 'nullable|exists:session_votes,id',
                 ])
                 ->beforeImport(function (array $data) {
-                    $data['password'] = Hash::make($data['password'] ?? $data['unique_code']);
+                    $data['password'] = Hash::make($data['password'] ?? 'inmedamikom');
                     return $data;
                 })
                 ->afterImport(function (array $data) {
