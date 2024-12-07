@@ -66,7 +66,7 @@ class ListUsers extends ListRecords
             Actions\Action::make('Export')
                 ->action(fn () => Excel::download(new UsersExport(
                     $this->table->paginated(false)->getRecords()
-                ), 'orders.csv'))
+                ), 'users.csv'))
                 ->icon('heroicon-o-arrow-down-on-square'),
             Actions\CreateAction::make(),
         ];
