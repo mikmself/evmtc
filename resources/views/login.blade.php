@@ -92,8 +92,7 @@
         <input type="password" name="password" placeholder="Password" class="input-field" required>
         <button type="submit" class="glow-button w-full">Login</button>
     </form>
-    <p class="text-gray-500 mt-4">Developed By <a href="#" class="text-blue-500 font-bold hover:underline">mikmself</a></p>
-    <p class="text-gray-500 mt-4">Copyright &copy; <a href="#" class="text-blue-500 font-bold hover:underline">MIKM Technology Creative</a></p>
+    <p class="text-gray-500 mt-4">Developed By <a href="http://mikmauto.tech" class="text-blue-500 font-bold hover:underline">mikmself</a></p>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
