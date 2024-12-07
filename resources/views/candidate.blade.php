@@ -159,7 +159,7 @@
     </style>
 </head>
 <body>
-<h2 class="text-4xl font-bold text-white mb-6">Calon Ketua Intermedia Periode 2024/2025</h2>
+<h2 class="text-lg md:text-3xl font-bold text-white mb-6 text-center">Daftar Calon Ketua <br> Intermedia Periode 2024/2025</h2>
 <br>
 <div class="card-container">
     @foreach($candidates as $candidate)
