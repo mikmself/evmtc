@@ -30,7 +30,7 @@ class CandidateSeeder extends Seeder
             'vision' => 'Menghadirkan pemerintahan yang bersih, transparan, dan melayani masyarakat dengan adil, serta menciptakan kemajuan yang dapat dinikmati oleh setiap generasi.',
             'mission' => '1. Meningkatkan pelayanan publik dengan teknologi modern yang memudahkan masyarakat. 2. Menyediakan akses air bersih dan listrik untuk seluruh pelosok daerah. 3. Mendorong peningkatan produktivitas pertanian dengan menyediakan dukungan teknologi dan fasilitas. 4. Menggalakkan program literasi digital untuk menghadapi era revolusi industri 4.0. 5. Mengurangi tingkat pengangguran dengan menciptakan lebih banyak lapangan kerja dan memperkuat UMKM.',
             'motto' => 'Pembangunan untuk semua, demi masa depan yang lebih baik dan berkelanjutan.',
-            'photo' => 'ahttps://images.unsplash.com/photo-1580880783226-2eb5a737db5b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'photo' => 'https://images.unsplash.com/photo-1580880783226-2eb5a737db5b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         ]);
     }
 }
