@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.3.0
+    container_name: mysql_db_evmtc
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: my_db
+      MYSQL_USER: root_user
+      MYSQL_PASSWORD: root_pass
+    volumes:
+      - mysql_data_volume:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin_evmtc
+    links:
+      - mysql
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root_password
+      UPLOAD_LIMIT: 300M
+  redis:
+    image: 'redis:7-alpine'
+    container_name: 'redis_evmtc'
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+volumes:
+  mysql_data_volume:
+  redis_data:
